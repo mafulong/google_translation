@@ -1,31 +1,34 @@
 
 
 //  -------- 文件重定向 ----------
-const fs = require('fs');
-const logFilePath = 'main.log';
+// 如果是app就不能重定向了,需要注释下面这些代码。
+// const fs = require('fs');
+// const logFilePath = 'main.log';
 
-// 重定向 console.log 输出到文件
-const logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
-console.log = (...args) => {
-  const message = args.map(arg => typeof arg === 'string' ? arg : JSON.stringify(arg)).join(' ');
-  logStream.write(message + '\n');
-};
+// // 重定向 console.log 输出到文件
+// const logStream = fs.createWriteStream(logFilePath, { flags: 'a' });
+// console.log = (...args) => {
+//   const message = args.map(arg => typeof arg === 'string' ? arg : JSON.stringify(arg)).join(' ');
+//   logStream.write(message + '\n');
+// };
 
 // -------- 设置mainwindow --------
 
 const { BrowserWindow } = require('electron');
-const { app, globalShortcut, ipcMain } = require('electron');
+const { app, globalShortcut, ipcMain, clipboard} = require('electron');
 let mainWindow;
 function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: 1024,
 		height: 800,
 		webPreferences: {
-			nodeIntegration: true
+			nodeIntegration: true,
+      enableRemoteModule: true, // 允许使用 remote 模块
+      contextIsolation: false, // 禁用上下文隔离
 		}
 	});
 
-	mainWindow.loadURL('https://translate.google.com/');
+	// mainWindow.loadURL('https://translate.google.com/');
 	mainWindow.on('closed', function () {
 		mainWindow = null;
 	});
@@ -35,13 +38,22 @@ function createWindow() {
 
 app.on('ready', () => {
     // 注册全局快捷键
-    globalShortcut.register('CommandOrControl+K', () => {
+    globalShortcut.register('CommandOrControl+Shift+C', () => {
       // 在这里执行你的操作或调用你的应用程序的特定方法
-      // 例如，你可以调用一个函数来执行应用程序的特定操作
-      // Your code here
-      console.log("快捷键输入了")
+      // 获取剪贴板中的选中文本
+      const selectedText = clipboard.readText('selection')
+      // 在这里执行你的操作或调用你的应用程序的特定方法，将选中文本提供给用户
+      // console.log('Selected Text:', selectedText)
+      if (mainWindow === null){
+        createWindow();
+      }
+      mainWindow.loadURL(`https://translate.google.com/?langpair=auto%7Cauto&text=`+encodeURIComponent(selectedText));
+      mainWindow.focus();
+
     })
+
     createWindow();
+	  mainWindow.loadURL('https://translate.google.com/');
 });
 
 app.on('window-all-closed', function () {
@@ -59,8 +71,12 @@ app.on('will-quit', () => {
 app.on('activate', function () {
 	// On macOS it's common to re-create a window in the app when the
 	// dock icon is clicked and there are no other windows open.
-  if (BrowserWindow.getAllWindows().length === 0 && mainWindow === null) createWindow();
+  if (BrowserWindow.getAllWindows().length === 0 && mainWindow === null) {
+    createWindow();
+	  mainWindow.loadURL('https://translate.google.com/');
+  }
 });
+
 
 // ---------- http server ---------
 const http = require('http');

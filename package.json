@@ -6,6 +6,9 @@
   "scripts": {
     "start": "electron . > /dev/null&"
   },
+  "build": {
+    "appId": "com.mfl.google_trans"
+  },
   "repository": "https://github.com/laissonsilveira/google-translate-electron.git",
   "keywords": [
     "Electron",
