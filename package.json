@@ -1,0 +1,26 @@
+{
+  "name": "google-translate-electron",
+  "version": "1.0.0",
+  "description": "Open Google Translate at Desktop",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron . > /dev/null&"
+  },
+  "repository": "https://github.com/laissonsilveira/google-translate-electron.git",
+  "keywords": [
+    "Electron",
+    "google",
+    "translate",
+    "tradutor",
+    "desktop"
+  ],
+  "author": {
+    "name": "mafulong",
+    "email": "mafulong97@gmail.com",
+    "url": "https://mafulong.github.io"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "electron": "^4.0.7"
+  }
+}
