@@ -35,10 +35,11 @@ curl -X POST -d "message=Hello, Electron" http://localhost:3000
 
 
 集成到popclip
-#popclip shellscript example  
-name: Say
+# popclip shellscript nested in an applescript 
+name: Trans
 shell script: curl -X POST -d $POPCLIP_TEXT http://localhost:3000
 interpreter: zsh
+
 
 # popclip shellscript nested in an applescript 
 name: Trans2
