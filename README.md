@@ -54,6 +54,14 @@ applescript: do shell script "echo '{popclip text}' > ~/abchh"
 
 ![image-20230630104903336](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202306301049621.png)
 
+
+
+popclip集成
+
+![file](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202306301120951.gif)
+
+
+
 ## Todo
 
 - mac系统全局快捷键一键唤醒app并到前台
