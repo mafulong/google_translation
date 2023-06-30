@@ -1,4 +1,6 @@
 
+
+//  -------- 文件重定向 ----------
 const fs = require('fs');
 const logFilePath = 'main.log';
 
@@ -8,13 +10,12 @@ console.log = (...args) => {
   const message = args.map(arg => typeof arg === 'string' ? arg : JSON.stringify(arg)).join(' ');
   logStream.write(message + '\n');
 };
-console.log("哈哈哈哈");
 
+// -------- 设置mainwindow --------
 
 const { BrowserWindow } = require('electron');
 const { app, globalShortcut, ipcMain } = require('electron');
 let mainWindow;
-
 function createWindow() {
 	mainWindow = new BrowserWindow({
 		width: 1024,
@@ -30,7 +31,18 @@ function createWindow() {
 	});
 }
 
-app.on('ready', createWindow);
+// -------- app --------
+
+app.on('ready', () => {
+    // 注册全局快捷键
+    globalShortcut.register('CommandOrControl+K', () => {
+      // 在这里执行你的操作或调用你的应用程序的特定方法
+      // 例如，你可以调用一个函数来执行应用程序的特定操作
+      // Your code here
+      console.log("快捷键输入了")
+    })
+    createWindow();
+});
 
 app.on('window-all-closed', function () {
 	// On macOS it is common for applications and their menu bar
@@ -49,13 +61,8 @@ app.on('activate', function () {
 	// dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0 && mainWindow === null) createWindow();
 });
-// app.on('activate', function () {
 
-// 	if (mainWindow === null) {
-// 		createWindow();
-// 	}
-// });
-
+// ---------- http server ---------
 const http = require('http');
 
 // 创建 HTTP 服务器
@@ -75,9 +82,7 @@ const server = http.createServer((req, res) => {
     }
     // 将数据传输给渲染进程
     mainWindow.loadURL(`https://translate.google.com/?langpair=auto%7Cauto&text=`+encodeURIComponent(body));
-    // mainWindow.setAlwaysOnTop(true, 'floating', 1);
     mainWindow.focus();
-    // mainWindow.setAlwaysOnTop(true);
     // 返回响应给外部请求
     res.end('Received');
   });
