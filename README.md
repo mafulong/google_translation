@@ -8,9 +8,9 @@ Based on https://github.com/laissonsilveira/google-translate-electron
 
 ```bash
 # Clone this repository
-git clone https://github.com/laissonsilveira/google-translate-electron.git
+git clone git@github.com:mafulong/google_translation.git
 # Go into the repository
-cd google-translate-electron
+cd google_translation
 # Install dependencies
 npm install
 # Run the app
@@ -20,7 +20,7 @@ npm start
 > On macOS it is common for applications and their menu bar to stay active until the user quits explicitly with Cmd + Q
 
 
-开放接口给外面: curl -X POST -d "message=Hello, Electron" http://localhost:3000
+开放接口给外面: http server, 3000端口
 
 popclip有bug在于它会丢掉空行，空格之类的。这个没啥好办法，或者快捷键？
 
@@ -29,9 +29,11 @@ popclip有bug在于它会丢掉空行，空格之类的。这个没啥好办法�
 查看主进程的console.log:
 tail -f main.log
 
+外部调用事例
 curl -X POST -d "message=Hello, Electron" http://localhost:3000
 
 
+集成到popclip
 #popclip shellscript example  
 name: Say
 shell script: curl -X POST -d $POPCLIP_TEXT http://localhost:3000
