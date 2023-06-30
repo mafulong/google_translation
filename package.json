@@ -21,6 +21,6 @@
   },
   "license": "UNLICENSED",
   "devDependencies": {
-    "electron": "^4.0.7"
+    "electron": "^23.3.9"
   }
 }
