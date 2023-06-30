@@ -56,7 +56,7 @@ applescript: do shell script "echo '{popclip text}' > ~/abchh"
 
 
 
-popclip集成
+popclip集成, [CX](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202306301120951.gif)
 
 ![file](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202306301120951.gif)
 
