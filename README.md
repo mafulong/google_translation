@@ -26,6 +26,9 @@ popclip有bug在于它会丢掉空行，空格之类的。这个没啥好办法�
 
 
 ```
+查看主进程的console.log:
+tail -f main.log
+
 curl -X POST -d "message=Hello, Electron" http://localhost:3000
 
 
