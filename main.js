@@ -38,7 +38,8 @@ function createWindow() {
 
 app.on('ready', () => {
     // 注册全局快捷键
-    globalShortcut.register('CommandOrControl+Shift+C', () => {
+    // globalShortcut.register('CommandOrControl+Shift+C', () => {
+    globalShortcut.register('Cmd+E', () => {
       // 在这里执行你的操作或调用你的应用程序的特定方法
       // 获取剪贴板中的选中文本
       const selectedText = clipboard.readText('selection')
