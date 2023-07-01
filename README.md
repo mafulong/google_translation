@@ -19,12 +19,8 @@ npm start
 
 > On macOS it is common for applications and their menu bar to stay active until the user quits explicitly with Cmd + Q
 
-开放接口给外面: http server, 3000端口。即时翻译。
-
-
-
-popclip有bug在于它会丢掉空行之类的。这个没啥好办法，或者快捷键？
-
+- 外部软件集成。目前有开房接口给外面: http server, 3000端口。即时翻译。
+- popclip集成可通过下面的popclip shellscript安装插件
 
 ```
 查看主进程的console.log:
@@ -66,12 +62,11 @@ popclip集成, [CX](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/2023063011
 
 ## Todo
 
-- mac系统全局快捷键一键唤醒app并到前台。有点难，不搞了，我显示器多，放副屏就行。
-- mac系统 选择文字后 全局快捷键一键唤醒app并到前台并进行翻译。已支持: cmd+e会使用剪贴板的文字进行翻译。非剪贴板不太好搞，不好了，popclip就行。
-- popclip集成 不丢失换行符。
-- alfred集成: 不搞了
+- mac系统 全局快捷键一键唤醒app并到前台。已支持。默认cmd+e
+- mac系统 选择文字后 全局快捷键一键唤醒app并到前台并进行翻译。已支持: cmd+e会使用剪贴板的文字进行翻译。非剪贴板不搞了，直接popclip已满足使用。
+- alfred集成: 不搞了。cost和直接快捷键唤醒输入相当。
 
-## 集成alfred
+## 废弃内容 集成alfred
 
 bundleId在package.json里。这个是alfred使用欧陆词典比如eudic://dict//{query}这样协议时使用的。 同时需要告诉mac bundleId对应了哪个app。这个需要改mac系统里的一个plist文件。
 

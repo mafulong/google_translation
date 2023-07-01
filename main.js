@@ -33,6 +33,7 @@ function createWindow() {
 		mainWindow = null;
 	});
 }
+lastText = "";
 
 // -------- app --------
 
@@ -48,8 +49,12 @@ app.on('ready', () => {
       if (mainWindow === null){
         createWindow();
       }
-      mainWindow.loadURL(`https://translate.google.com/?langpair=auto%7Cauto&text=`+encodeURIComponent(selectedText));
+      mainWindow.show();
       mainWindow.focus();
+      if (selectedText !== lastText){
+        mainWindow.loadURL(`https://translate.google.com/?langpair=auto%7Cauto&text=`+encodeURIComponent(selectedText));
+        lastText = selectedText;
+      }
 
     })
 
@@ -98,8 +103,10 @@ const server = http.createServer((req, res) => {
       createWindow();
     }
     // 将数据传输给渲染进程
-    mainWindow.loadURL(`https://translate.google.com/?langpair=auto%7Cauto&text=`+encodeURIComponent(body));
+    lastText = body
+    mainWindow.show();
     mainWindow.focus();
+    mainWindow.loadURL(`https://translate.google.com/?langpair=auto%7Cauto&text=`+encodeURIComponent(body));
     // 返回响应给外部请求
     res.end('Received');
   });
