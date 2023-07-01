@@ -67,9 +67,9 @@ popclip集成, [CX](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/2023063011
 ## Todo
 
 - mac系统全局快捷键一键唤醒app并到前台。有点难，不搞了，我显示器多，放副屏就行。
-- mac系统 选择文字后 全局快捷键一键唤醒app并到前台并进行翻译。已支持: cmd+shifc+c会使用剪贴板的文字进行翻译。非剪贴板不太好搞，不好了，popclip就行。
+- mac系统 选择文字后 全局快捷键一键唤醒app并到前台并进行翻译。已支持: cmd+e会使用剪贴板的文字进行翻译。非剪贴板不太好搞，不好了，popclip就行。
 - popclip集成 不丢失换行符。
-- alfred集成: 已支持: 
+- alfred集成: 不搞了
 
 ## 集成alfred
 
