@@ -48,6 +48,10 @@ app.on('ready', () => {
       // console.log('Selected Text:', selectedText)
       if (mainWindow === null){
         createWindow();
+        mainWindow.show();
+        mainWindow.focus();
+	      mainWindow.loadURL('https://translate.google.com/');
+        return;
       }
       mainWindow.show();
       mainWindow.focus();
@@ -55,7 +59,6 @@ app.on('ready', () => {
         mainWindow.loadURL(`https://translate.google.com/?langpair=auto%7Cauto&text=`+encodeURIComponent(selectedText));
         lastText = selectedText;
       }
-
     })
 
     createWindow();
@@ -79,6 +82,8 @@ app.on('activate', function () {
 	// dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0 && mainWindow === null) {
     createWindow();
+    mainWindow.show();
+    mainWindow.focus();
 	  mainWindow.loadURL('https://translate.google.com/');
   }
 });
