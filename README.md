@@ -21,6 +21,7 @@ npm start
 
 - 外部软件集成。目前有开房接口给外面: http server, 3000端口。即时翻译。
 - popclip集成可通过下面的popclip shellscript安装插件
+- 可以自己导出成mac运行的app后缀程序。
 
 ```
 查看主进程的console.log:
