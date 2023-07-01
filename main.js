@@ -48,17 +48,15 @@ app.on('ready', () => {
       // console.log('Selected Text:', selectedText)
       if (mainWindow === null){
         createWindow();
-        mainWindow.show();
-        mainWindow.focus();
 	      mainWindow.loadURL('https://translate.google.com/');
-        return;
-      }
-      mainWindow.show();
-      mainWindow.focus();
-      if (selectedText !== lastText){
-        mainWindow.loadURL(`https://translate.google.com/?langpair=auto%7Cauto&text=`+encodeURIComponent(selectedText));
-        lastText = selectedText;
-      }
+        mainWindow.show();
+      } else{
+        if (selectedText !== lastText){
+          mainWindow.loadURL(`https://translate.google.com/?langpair=auto%7Cauto&text=`+encodeURIComponent(selectedText));
+          lastText = selectedText;
+        }
+        mainWindow.show();
+      
     })
 
     createWindow();
@@ -82,9 +80,8 @@ app.on('activate', function () {
 	// dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0 && mainWindow === null) {
     createWindow();
-    mainWindow.show();
-    mainWindow.focus();
 	  mainWindow.loadURL('https://translate.google.com/');
+    mainWindow.show();
   }
 });
 
@@ -109,9 +106,8 @@ const server = http.createServer((req, res) => {
     }
     // 将数据传输给渲染进程
     lastText = body
-    mainWindow.show();
-    mainWindow.focus();
     mainWindow.loadURL(`https://translate.google.com/?langpair=auto%7Cauto&text=`+encodeURIComponent(body));
+    mainWindow.show();
     // 返回响应给外部请求
     res.end('Received');
   });
