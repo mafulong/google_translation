@@ -1,6 +1,7 @@
+const fs = require('fs');
 //  -------- 文件重定向 ----------
-// 如果是app就不能重定向了,需要注释下面这些代码。
-// const fs = require('fs');
+// 如果是封装好的mac app就不能重定向了,需要注释下面这些代码。
+// 本地开发调试时打开, 然后tail -f main.log就可以看log了
 // const logFilePath = 'main.log';
 
 // // 重定向 console.log 输出到文件
@@ -13,7 +14,7 @@
 // -------- 设置mainwindow --------
 
 const { BrowserWindow } = require("electron");
-const { app, globalShortcut, ipcMain, clipboard } = require("electron");
+const { app, globalShortcut, ipcMain, clipboard, session} = require("electron");
 let mainWindow;
 function createWindow() {
     mainWindow = new BrowserWindow({
@@ -32,6 +33,48 @@ function createWindow() {
     });
 }
 lastText = "";
+// proxy
+const path = require('path');
+const yaml = require('js-yaml');
+
+function readConfig(filePath) {
+  try {
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+    const config = yaml.load(fileContent);
+    return config;
+  } catch (error) {
+    if (error.code === 'ENOENT') {
+      // 文件不存在，创建一个空文件并返回空对象
+      fs.writeFileSync(filePath, '');
+      return {};
+    }
+    throw error; // 抛出其他文件读取错误
+  }
+}
+
+function makeRequest(url, config) {
+  if (config.use_proxy) {
+    // 使用代理配置
+    const proxies = config.proxies || {};
+    // 使用适当的 HTTP 请求库发送请求
+    // 这里假设您使用的是 'requests' 库
+    const response = requests.get(url, { proxies });
+    return response.text;
+  } else {
+    // 不使用代理
+    const response = requests.get(url);
+    return response.text;
+  }
+}
+
+function getProxyConfig() {
+  const homeDir = require('os').homedir();
+  // 构建配置文件路径
+  const configFile = path.join(homeDir, '.google_translation_config.yml');
+  // 读取配置文件
+  const config = readConfig(configFile);
+  return config;
+}
 
 // -------- app --------
 
@@ -58,7 +101,13 @@ app.on("ready", () => {
         }
         mainWindow.show();
     });
-
+    const proxy = getProxyConfig()
+    if (proxy && proxy.use_proxy && proxy.proxy) {
+      // 设置会话的代理
+      console.log("启用proxy: " + proxy.proxy);
+      session.defaultSession.allowNTLMCredentialsForDomains('*');
+      session.defaultSession.setProxy({ proxyRules: proxy.proxy, pacScript: '' });
+    }
     createWindow();
     mainWindow.loadURL("https://translate.google.com/");
 });

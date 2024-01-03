@@ -25,5 +25,8 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "electron": "^23.3.9"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
   }
 }
