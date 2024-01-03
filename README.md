@@ -61,6 +61,16 @@ popclip集成, [CX](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/2023063011
 
 ![file](https://cdn.jsdelivr.net/gh/mafulong/mdPic@vv8/v8/202306301126598.gif)
 
+## Proxy
+可以配置如下内容来开启代理，应对google翻译需要vpn的情况。
+
+文件 ~/.google_translation_config.yml
+
+```yaml
+use_proxy: true  # 或者 false，根据需要设置
+proxy: socks5://127.0.0.1:7890
+```
+
 ## Todo
 
 - mac系统 全局快捷键一键唤醒app并到前台。已支持。默认cmd+e
