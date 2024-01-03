@@ -44,7 +44,10 @@ applescript: do shell script "echo '{popclip text}' > ~/abchh"
 
 
 生成mac .app 程序。
+npm install
 electron-packager . --platform=darwin --arch=x64 --out=./dist --overwrite
+Or
+npm run npm run gen-mac-app
 ```
 
 
@@ -95,4 +98,11 @@ mac系统展示bundle Id是多少:
 /usr/libexec/PlistBuddy -c "Add :LSHandlers:0:LSHandlerRoleAll string com.electron.google-translate-electron" ~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure.plist
 
 /usr/libexec/PlistBuddy -c "Save" ~/Library/Preferences/com.apple.LaunchServices/com.apple.launchservices.secure.plist
+```
+
+## npx用法
+因为 electron-packager 不在项目的 node_modules/.bin 目录中。为了解决这个问题，你可以使用 npx 命令来运行 electron-packager，这样它会在项目的本地 node_modules/.bin 目录中查找
+
+```
+npx electron-packager . --platform=darwin --arch=x64 --out=./dist --overwrite
 ```
