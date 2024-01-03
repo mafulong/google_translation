@@ -4,7 +4,8 @@
   "description": "Open Google Translate at Desktop",
   "main": "main.js",
   "scripts": {
-    "start": "electron . > /dev/null&"
+    "start": "electron . > /dev/null&",
+    "gen-mac-app": "npx electron-packager . --platform=darwin --arch=x64 --out=$(pwd)/dist --overwrite --prune"
   },
   "build": {
     "appId": "com.mfl.google_trans"
@@ -24,7 +25,8 @@
   },
   "license": "UNLICENSED",
   "devDependencies": {
-    "electron": "^23.3.9"
+    "electron": "^23.3.13",
+    "electron-packager": "^17.1.2"
   },
   "dependencies": {
     "js-yaml": "^4.1.0"
